@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Form Validation</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1 class="pt-5">Js Form Validation</h1>
+      <form name="myform">
+        <div class="row" id="form-validation">
+          <div class="col-sm-6 col-12 pb-3">
+            <input
+              type="text"
+              class="form-control"
+              name="firstname"
+              placeholder="First Name"
+              required
+            />
+            <div class="valid-feedback">
+              Looks Good !
+            </div>
+            <div class="invalid-feedback">
+              Please Enter First Name !
+            </div>
+          </div>
+          <div class="col-sm-6 col-12 pb-3">
+            <input
+              type="text"
+              class="form-control"
+              name="lastname"
+              placeholder="Last Name"
+              required
+            />
+            <div class="valid-feedback">
+              Looks Good !
+            </div>
+            <div class="invalid-feedback">
+              Please Enter Last Name !
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-12 pb-3">
+            <input
+              type="email"
+              class="form-control"
+              name="email"
+              placeholder="E-mail"
+              required
+            />
+            <div class="valid-feedback">
+              Looks Good !
+            </div>
+            <div class="invalid-feedback">
+              Please Provide a valid E-mail address !
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-12 pb-3">
+            <input
+              type="tel"
+              class="form-control"
+              name="tel"
+              placeholder="Mobile No."
+              required
+            />
+            <div class="valid-feedback">
+              Looks Good !
+            </div>
+            <div class="invalid-feedback">
+              Please Provide a valid Mobile No. !
+            </div>
+          </div>
+          <div class="col-sm-6 col-12 pb-3">
+            <input
+              type="password"
+              class="form-control"
+              name="password"
+              placeholder="Password"
+              required
+              title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+            />
+            <div class="valid-feedback">
+              Looks Good !
+            </div>
+            <div class="invalid-feedback">
+              Please Provide a valid Password <br />
+              Having These Values-- <br />
+              <ol>
+                <li>Must have a Capital Letter</li>
+                <li>Must have a Small Letter</li>
+                <li>Must have a Numeric Value</li>
+                <li>Minimum Length is 8 Character</li>
+              </ol>
+            </div>
+          </div>
+          <div class="col-sm-6 col-12 pb-3">
+            <input
+              type="password"
+              class="form-control"
+              name="confirmpassword"
+              placeholder="Confirm Password"
+              required
+              title="Confirm Your Passsword By Re-entering the same Password again"
+            />
+            <div class="valid-feedback">
+              Looks Good !
+            </div>
+            <div class="invalid-feedback">
+              Please Provide same Password <br />
+            </div>
+          </div>
+        </div>
+        <button
+          type="button"
+          id="btn"
+          class="btn  btn-primary"
+          onclick="validateform()"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  </body>
+  <script>
+    var uv = document.forms["myform"]["firstname"];
+    var xv = document.forms["myform"]["lastname"];
+    var yv = document.forms["myform"]["email"];
+    var zv = document.forms["myform"]["tel"];
+    var pv = document.forms["myform"]["password"];
+    var cpv = document.forms["myform"]["confirmpassword"];
+    var phoneNum = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+    var emailId = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    var lowerCaseLetters = /[a-z]/g;
+    var upperCaseLetters = /[A-Z]/g;
+    var numbers = /[0-9]/g;
+
+    uv.onblur = function() {
+      if (uv.value == "" || uv == null) {
+        uv.classList.add("is-invalid");
+        uv.classList.remove("is-valid");
+      } else {
+        uv.classList.add("is-valid");
+        uv.classList.remove("is-invalid");
+      }
+    };
+
+    xv.onblur = function() {
+      if (xv.value == "" || xv == null) {
+        xv.classList.add("is-invalid");
+        xv.classList.remove("is-valid");
+      } else {
+        xv.classList.add("is-valid");
+        xv.classList.remove("is-invalid");
+      }
+    };
+
+    yv.onblur = function() {
+      if (yv.value.match(emailId)) {
+        yv.classList.add("is-valid");
+        yv.classList.remove("is-invalid");
+      } else {
+        yv.classList.add("is-invalid");
+        yv.classList.remove("is-valid");
+      }
+    };
+
+    zv.onblur = function() {
+      if (zv.value.match(phoneNum)) {
+        zv.classList.add("is-valid");
+        zv.classList.remove("is-invalid");
+      } else {
+        zv.classList.add("is-invalid");
+        zv.classList.remove("is-valid");
+      }
+    };
+
+    pv.onblur = function() {
+      if (
+        pv.value.length >= 8 &&
+        pv.value.match(lowerCaseLetters) &&
+        pv.value.match(upperCaseLetters) &&
+        pv.value.match(numbers)
+      ) {
+        pv.classList.add("is-valid");
+        pv.classList.remove("is-invalid");
+      } else {
+        pv.classList.add("is-invalid");
+        pv.classList.remove("is-valid");
+      }
+    };
+
+    cpv.onblur = function() {
+      if (cpv.value == pv.value && pv.value !== "") {
+        cpv.classList.add("is-valid");
+        cpv.classList.remove("is-invalid");
+      } else {
+        cpv.classList.add("is-invalid");
+        cpv.classList.remove("is-valid");
+      }
+    };
+
+    function validateform() {
+      if (uv.value == "" || uv == null) {
+        uv.classList.add("is-invalid");
+        uv.classList.remove("is-valid");
+      } else {
+        uv.classList.add("is-valid");
+        uv.classList.remove("is-invalid");
+      }
+
+      if (xv.value == "" || xv == null) {
+        xv.classList.add("is-invalid");
+        xv.classList.remove("is-valid");
+      } else {
+        xv.classList.add("is-valid");
+        xv.classList.remove("is-invalid");
+      }
+
+      if (yv.value.match(emailId)) {
+        yv.classList.add("is-valid");
+        yv.classList.remove("is-invalid");
+      } else {
+        yv.classList.add("is-invalid");
+        yv.classList.remove("is-valid");
+      }
+
+      if (zv.value.match(phoneNum)) {
+        zv.classList.add("is-valid");
+        zv.classList.remove("is-invalid");
+      } else {
+        zv.classList.add("is-invalid");
+        zv.classList.remove("is-valid");
+      }
+
+      if (
+        pv.value.length >= 8 &&
+        pv.value.match(lowerCaseLetters) &&
+        pv.value.match(upperCaseLetters) &&
+        pv.value.match(numbers)
+      ) {
+        pv.classList.add("is-valid");
+        pv.classList.remove("is-invalid");
+      } else {
+        pv.classList.add("is-invalid");
+        pv.classList.remove("is-valid");
+      }
+      if (cpv.value == pv.value && pv.value !== "") {
+        cpv.classList.add("is-valid");
+        cpv.classList.remove("is-invalid");
+      } else {
+        cpv.classList.add("is-invalid");
+        cpv.classList.remove("is-valid");
+      }
+      const contain1 = uv.classList.contains("is-valid");
+      const contain2 = xv.classList.contains("is-valid");
+      const contain3 = yv.classList.contains("is-valid");
+      const contain4 = pv.classList.contains("is-valid");
+      const contain5 = zv.classList.contains("is-valid");
+      const contain6 = cpv.classList.contains("is-valid");
+      const submit = document.getElementById("btn").classList;
+      if (
+        contain1 &&
+        contain2 &&
+        contain3 &&
+        contain4 &&
+        contain5 &&
+        contain6
+      ) {
+        submit.remove("btn-primary");
+        submit.remove("btn-danger");
+        submit.add("btn-success");
+      } else {
+        submit.remove("btn-primary");
+        submit.remove("btn-success");
+        submit.add("btn-danger");
+      }
+    }
+  </script>
+</html>
