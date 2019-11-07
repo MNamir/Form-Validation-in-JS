@@ -136,14 +136,16 @@ function validateform() {
     var i;
     for (i = 0; i < allInput.length; i++) {  // Validate button if all inputs are valid & Alert Message
         const valid = allInput[i].classList.contains("is-valid");
-        if (valid) {
-            submit.classList.remove("btn-primary");
-            submit.classList.remove("btn-danger");
-            submit.classList.add("btn-success");
-        } else {
+        console.log(valid)
+        if (valid === false) {
             submit.classList.remove("btn-primary");
             submit.classList.remove("btn-success");
             submit.classList.add("btn-danger");
+            break;
+        } else {
+            submit.classList.remove("btn-primary");
+            submit.classList.remove("btn-danger");
+            submit.classList.add("btn-success");
         }
     }
 
@@ -155,10 +157,13 @@ const disableBtn = () => {
     var i;
     for (i = 0; i < allInput.length; i++) {
         const valid = allInput[i].classList.contains("is-valid");
-        if (valid) {
-            submit.disabled = false;
-        } else {
+        console.log(valid)
+        if (valid === false) {
             submit.disabled = true;
+            break;
+        }
+        else {
+            submit.disabled = false;
         }
     }
 
